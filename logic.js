@@ -50,11 +50,11 @@ const LinkedList = function () {
 
   function contains(value) {
     let tmp = head;
-    while (tmp != null){
-        if (tmp.value == value){
-            return true;
-        }
-        tmp = tmp.nextNode;
+    while (tmp != null) {
+      if (tmp.value == value) {
+        return true;
+      }
+      tmp = tmp.nextNode;
     }
     return false;
   }
@@ -62,14 +62,44 @@ const LinkedList = function () {
   function find(value) {
     let tmp = head;
     let index = 0;
-    while (tmp != null){
-        if (tmp.value == value){
-            return index;
-        }
-        index++;
-        tmp = tmp.nextNode;
+    while (tmp != null) {
+      if (tmp.value == value) {
+        return index;
+      }
+      index++;
+      tmp = tmp.nextNode;
     }
     return null;
+  }
+
+  function insertAt(value, index) {
+    if (head == null) return console.log("List is empty");
+    if (index > size() - 1) return console.log("Out of Bounds");
+    const nodeAtIndex = at(index);
+    if (nodeAtIndex == head && nodeAtIndex == tail) {
+      head = node(value, nodeAtIndex);
+    } else if (nodeAtIndex == head) {
+      head = node(value, nodeAtIndex);
+    } else if (nodeAtIndex == tail) {
+      nodeAtIndex.nextNode = tail = node(value);
+    } else {
+      const nodeBeforeIndex = at(index - 1);
+      nodeBeforeIndex.nextNode = node(value, nodeAtIndex);
+    }
+  }
+
+  function removeAt(index) {
+    if (head == null) return console.log("List is empty");
+    if (index > size() - 1) return console.log("Out of Bounds");
+    const nodeAtIndex = at(index);
+    if (nodeAtIndex == head) {
+      head = nodeAtIndex.nextNode;
+      nodeAtIndex.nextNode = null;
+    } else {
+      const nodeBeforeIndex = at(index - 1);
+      nodeBeforeIndex.nextNode = nodeAtIndex.nextNode;
+      nodeAtIndex.nextNode = null;
+    }
   }
 
   function toString() {
@@ -89,7 +119,20 @@ const LinkedList = function () {
     return tail;
   }
 
-  return { append, prepend, size, at, toString, myHead, myTail, pop, contains, find };
+  return {
+    append,
+    prepend,
+    size,
+    at,
+    toString,
+    myHead,
+    myTail,
+    pop,
+    contains,
+    find,
+    insertAt,
+    removeAt,
+  };
 };
 
 const node = function (value = null, nextNode = null) {

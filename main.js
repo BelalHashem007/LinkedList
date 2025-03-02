@@ -1,12 +1,10 @@
 import { LinkedList } from "./logic.js";
-
 const list = LinkedList();
-list.prepend("Amr");
-list.prepend("Ebrahim");
-list.append("Belal");
-list.append("Ahmed");
-list.toString();
-console.log(list.size());
-//console.log(list.contains("1"));
-console.log(list.find("Belal"));
-console.log(list.at(2))
+list.append("dog");
+list.append("cat");
+list.append("parrot");
+list.append("hamster");
+list.append("snake");
+list.append("turtle");
+
+list.toString(0);
