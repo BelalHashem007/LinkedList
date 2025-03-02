@@ -32,6 +32,7 @@ const LinkedList = function () {
   function at(index) {
     let tmp = head;
     for (let i = 0; i < index; i++) {
+      if (tmp == null) break;
       tmp = tmp.nextNode;
     }
     return tmp;
@@ -74,8 +75,8 @@ const LinkedList = function () {
 
   function insertAt(value, index) {
     if (head == null) return console.log("List is empty");
-    if (index > size() - 1) return console.log("Out of Bounds");
     const nodeAtIndex = at(index);
+    if (nodeAtIndex == null) return console.log("Out of Bounds");
     if (nodeAtIndex == head && nodeAtIndex == tail) {
       head = node(value, nodeAtIndex);
     } else if (nodeAtIndex == head) {
@@ -90,15 +91,17 @@ const LinkedList = function () {
 
   function removeAt(index) {
     if (head == null) return console.log("List is empty");
-    if (index > size() - 1) return console.log("Out of Bounds");
     const nodeAtIndex = at(index);
+    if (nodeAtIndex == null) return console.log("Out of Bounds");
     if (nodeAtIndex == head) {
       head = nodeAtIndex.nextNode;
-      nodeAtIndex.nextNode = null;
+    } else if (nodeAtIndex == tail) {
+      const nodeBeforeIndex = at(index - 1);
+      nodeBeforeIndex.nextNode = nodeAtIndex.nextNode;
+      tail = nodeBeforeIndex;
     } else {
       const nodeBeforeIndex = at(index - 1);
       nodeBeforeIndex.nextNode = nodeAtIndex.nextNode;
-      nodeAtIndex.nextNode = null;
     }
   }
 
